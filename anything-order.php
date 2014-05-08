@@ -1,13 +1,13 @@
 <?php
 /*
 Plugin Name: Anythig Order
-Plugin URI: http://wordpress.org/extend/plugins/anything-order/
+Plugin URI: http://wordpress.org/plugins/anything-order/
 Description: This plugin allows you to arrange any post types and taxonomies with drag and drop.
-Author: kyamagucci
+Author: pmwp
 Author URI: http://pimpmysite.net/
 Text Domain: anything-order
 Domain Path: /languages/
-Version: 1.0.0
+Version: 1.0.1
 License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 */
 

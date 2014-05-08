@@ -1,9 +1,9 @@
 === Anything Order ===
-Contributors: Kazuhide Yamaguchi
-Tags: admin, ajax, custom, drag and drop, menu_order, order, ordering, page, post, rearrange, reorder, sort, taxonomy, term_order
+Contributors: pmwp
+Tags: admin, custom, drag and drop, menu_order, order, page, post, rearrange, reorder, sort, taxonomy, term_order
 Requires at least: 3.8
 Tested up to: 3.9
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,7 +31,7 @@ This plugin allows you to arrange any post types and taxonomies with simple drag
 == Frequently Asked Questions ==
 
 = Q. I have a question =
-A. Check out the [support forum on WordPress.org](http://wordpress.org/support/plugin/anything-order).
+A. Check out the [support forum on WordPress.org](http://wordpress.org/support/plugin/anything-order) or [repository on Github](https://github.com/pimpmysite/anything-order).
 
 = Q. I don't want some post types to be sortable. =
 A. Uncheck the "Order" option in "Show on screen" section on [Screen Options](http://codex.wordpress.org/Administration_Screens#Screen_Options) tab to disable sorting.
@@ -54,6 +54,10 @@ A. __Currently__ not supported.
 
 
 == Changelog ==
+
+= 1.0.1 =
+* Tweak - Remove screenshots from the plugin's release zip files.
+* Tweak - Various small code tweaks.
 
 = 1.0.0 =
 * Initial Release

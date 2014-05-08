@@ -26,7 +26,7 @@ class Anything_Order_Post extends Anything_Order_Base {
     }
 
     /**
-     * Hook: Modify orderby clause for main query.
+     * Hook: Modify orderby clause on admin screen and the public site.
      *
      * @since 1.0.0
      * @access public
@@ -39,7 +39,7 @@ class Anything_Order_Post extends Anything_Order_Base {
         global $wpdb;
 
         if ( ! is_admin() || ( is_admin() && ! isset( $_GET['orderby'] ) ) ) {
-            if ( false == strpos( $orderby, 'menu_order' ) ) {
+            if ( false === strpos( $orderby, 'menu_order' ) ) {
                 $orderby = "$wpdb->posts.menu_order ASC,$orderby";
             }
         }
