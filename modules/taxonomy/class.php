@@ -192,13 +192,13 @@ class Anything_Order_Taxonomy extends Anything_Order_Base {
             case 'names':
                 $field = 'name';
                 $select_this = 't.name, t.term_id, tt.taxonomy';
-                $values = $terms;
+                $values = array_map( array( $this, 'add_quote' ), $terms );
                 break;
 
             case 'slugs':
                 $field ='slug';
                 $select_this = 't.slug, t.term_id, tt.taxonomy';
-                $values = $terms;
+                $values = array_map( array( $this, 'add_quote' ), $terms );
                 break;
 
             case 'all_with_object_id':
@@ -231,12 +231,13 @@ class Anything_Order_Taxonomy extends Anything_Order_Base {
 
         } else if ( 'ids' == $fields || 'names' == $fields || 'slugs' == $fields ) {
             $terms = $wpdb->get_results( $query );
+            $_field = ( 'ids' == $fields ) ? 'term_id' : 'name';
             foreach ( $terms as $key => $term ) {
                 $terms[$key] = sanitize_term_field( $_field, $term->$field, $term->term_id, $term->taxonomy, 'raw' );
             }
 
         } else if ( 'tt_ids' == $fields ) {
-            $terms = $wpdb->get_col(
+            $terms = $wpdb->get_results(
                 "SELECT tt.term_taxonomy_id, tt.taxonomy"
               . " FROM $wpdb->term_taxonomy AS tt"
               . " LEFT JOIN $wpdb->term_relationships AS tr ON tr.term_taxonomy_id = tt.term_taxonomy_id"
@@ -251,6 +252,22 @@ class Anything_Order_Taxonomy extends Anything_Order_Base {
         }
 
         return $terms;
+    }
+    
+    /**
+     * Surround the string with a single quote
+     *
+     * @since 1.0.2
+     * @access protected
+     *
+     * @see Anything_Order_Taxonomy::get_object_terms()
+     *
+     * @param string $str An string.
+     * @return string String surrounded with a single quote.
+     *
+     */
+    protected function add_quote( $str ) {
+        return "'$str'";
     }
 
     /**
