@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Anythig Order
+Plugin Name: Anything Order
 Plugin URI: http://wordpress.org/plugins/anything-order/
 Description: This plugin allows you to arrange any post types and taxonomies with drag and drop.
 Author: pmwp
