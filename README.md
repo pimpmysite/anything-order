@@ -43,13 +43,13 @@ A. __Currently__ not supported.
 
 ##Screenshots
 
-![Enable/Disable arrangement](screenshot-1.png?raw=true "Screenshot 1")
+![Enable/Disable arrangement](http://ps.w.org/anything-order/assets/screenshot-1.png?rev=910154?raw=true "Screenshot 1")  
 Enable/Disable arrangement with drag and drop on "Screen Options" tab.
 
-![Multiple selection](screenshot-2.png?raw=true "Screenshot 2")
+![Multiple selection](http://ps.w.org/anything-order/assets/screenshot-2.png?rev=910154?raw=true "Screenshot 2")  
 You can select multiple items.
 
-![Dragging items](screenshot-3.png?raw=true "Screenshot 3")
+![Dragging items](http://ps.w.org/anything-order/assets/screenshot-3.png?rev=910154?raw=true "Screenshot 3")  
 Dragging multiple items.
 
 
