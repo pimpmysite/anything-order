@@ -3,7 +3,7 @@ Contributors: pmwp
 Tags: admin, custom, drag and drop, menu_order, order, page, post, rearrange, reorder, sort, taxonomy, term_order
 Requires at least: 3.8
 Tested up to: 3.9
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,10 @@ A. __Currently__ not supported.
 
 
 == Changelog ==
+
+= 1.0.3 =
+* Fix - Terms disappear after installing.
+* Tweak - Correct the wrong plugin name.
 
 = 1.0.2 =
 * Fix - PHP error on wp_get_object_terms() with option 'fields' => 'names', 'slugs', 'tt_ids'

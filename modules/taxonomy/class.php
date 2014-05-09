@@ -217,9 +217,8 @@ class Anything_Order_Taxonomy extends Anything_Order_Base {
         $query = "SELECT $select_this"
                . " FROM $wpdb->terms AS t"
                . " INNER JOIN $wpdb->term_taxonomy AS tt ON tt.term_id = t.term_id"
-               . " LEFT  JOIN $wpdb->term_relationships AS tr ON tr.term_taxonomy_id = tt.term_taxonomy_id"
+               . " LEFT  JOIN $wpdb->term_relationships AS tr ON (tr.term_taxonomy_id = tt.term_taxonomy_id AND tr.object_id = 0)"
                . " WHERE t.$field IN ($values)"
-               . " AND tr.object_id = 0"
                . " ORDER BY $orderby $order";
 
         if ( 'all' == $fields || 'all_with_object_id' == $fields ) {
@@ -240,9 +239,8 @@ class Anything_Order_Taxonomy extends Anything_Order_Base {
             $terms = $wpdb->get_results(
                 "SELECT tt.term_taxonomy_id, tt.taxonomy"
               . " FROM $wpdb->term_taxonomy AS tt"
-              . " LEFT JOIN $wpdb->term_relationships AS tr ON tr.term_taxonomy_id = tt.term_taxonomy_id"
+              . " LEFT JOIN $wpdb->term_relationships AS tr ON (tr.term_taxonomy_id = tt.term_taxonomy_id AND tr.object_id = 0)"
               . " WHERE tt.term_taxonomy_id IN ($values)"
-              . " AND tr.object_id = 0"
               . " ORDER BY $orderby $order"
             );
 
@@ -304,8 +302,7 @@ class Anything_Order_Taxonomy extends Anything_Order_Base {
 
             $pieces['orderby']  = 'ORDER BY ' . $orderby;
             $pieces['fields' ] .= ',tr.term_order';
-            $pieces['join'   ] .= " LEFT JOIN $wpdb->term_relationships AS tr ON tr.term_taxonomy_id = tt.term_taxonomy_id";
-            $pieces['where'  ] .= ' AND (tr.object_id = 0 OR tr.object_id IS NULL)';
+            $pieces['join'   ] .= " LEFT JOIN $wpdb->term_relationships AS tr ON (tr.term_taxonomy_id = tt.term_taxonomy_id AND tr.object_id = 0)";
         }
 
         return $pieces;
