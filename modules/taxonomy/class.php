@@ -192,13 +192,13 @@ class Anything_Order_Taxonomy extends Anything_Order_Base {
             case 'names':
                 $field = 'name';
                 $select_this = 't.name, t.term_id, tt.taxonomy';
-                $values = array_map( array( $this, 'add_quote' ), $terms );
+                $values = $terms;
                 break;
 
             case 'slugs':
                 $field ='slug';
                 $select_this = 't.slug, t.term_id, tt.taxonomy';
-                $values = array_map( array( $this, 'add_quote' ), $terms );
+                $values = $terms;
                 break;
 
             case 'all_with_object_id':
@@ -212,24 +212,25 @@ class Anything_Order_Taxonomy extends Anything_Order_Base {
                 break;
         }
 
-        $values = implode( ',', $values );
+        $placeholders = array_fill(0,count($values), "'%s'");
+        $placeholders = implode( ',', $placeholders );
 
         $query = "SELECT $select_this"
                . " FROM $wpdb->terms AS t"
                . " INNER JOIN $wpdb->term_taxonomy AS tt ON tt.term_id = t.term_id"
                . " LEFT  JOIN $wpdb->term_relationships AS tr ON (tr.term_taxonomy_id = tt.term_taxonomy_id AND tr.object_id = 0)"
-               . " WHERE t.$field IN ($values)"
+               . " WHERE t.$field IN ($placeholders)"
                . " ORDER BY $orderby $order";
 
         if ( 'all' == $fields || 'all_with_object_id' == $fields ) {
-            $terms = $wpdb->get_results( $query );
+            $terms = $wpdb->get_results( $wpdb->prepare($query, $values) );
             foreach ( $terms as $key => $term ) {
                 $terms[$key] = sanitize_term( $term, $term->taxonomy, 'raw' );
             }
             update_term_cache( $terms );
 
         } else if ( 'ids' == $fields || 'names' == $fields || 'slugs' == $fields ) {
-            $terms = $wpdb->get_results( $query );
+            $terms = $wpdb->get_results( $wpdb->prepare($query, $values) );
             $_field = ( 'ids' == $fields ) ? 'term_id' : 'name';
             foreach ( $terms as $key => $term ) {
                 $terms[$key] = sanitize_term_field( $_field, $term->$field, $term->term_id, $term->taxonomy, 'raw' );
@@ -237,11 +238,12 @@ class Anything_Order_Taxonomy extends Anything_Order_Base {
 
         } else if ( 'tt_ids' == $fields ) {
             $terms = $wpdb->get_results(
+                $wpdb->prepare(
                 "SELECT tt.term_taxonomy_id, tt.taxonomy"
               . " FROM $wpdb->term_taxonomy AS tt"
               . " LEFT JOIN $wpdb->term_relationships AS tr ON (tr.term_taxonomy_id = tt.term_taxonomy_id AND tr.object_id = 0)"
-              . " WHERE tt.term_taxonomy_id IN ($values)"
-              . " ORDER BY $orderby $order"
+              . " WHERE tt.term_taxonomy_id IN ($placeholders)"
+              . " ORDER BY $orderby $order", $values)
             );
 
             foreach ( $terms as $key => $term ) {
